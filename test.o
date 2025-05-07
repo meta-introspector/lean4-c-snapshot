@@ -1,0 +1,1302 @@
+; ModuleID = '.\Lean.c'
+source_filename = ".\\Lean.c"
+target datalayout = "e-m:w-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-pc-windows-msvc19.43.34810"
+
+%struct.lean_object = type { i32, i32 }
+%struct.lean_ctor_object = type { %struct.lean_object, [0 x ptr] }
+
+$"??_C@_0GD@OGIAFFAO@tag?5?$DM?$DN?5LeanMaxCtorTag?5?$CG?$CG?5num_obj@" = comdat any
+
+$"??_C@_0BG@NLEFNKGC@?4?2include?2lean?1lean?4h?$AA@" = comdat any
+
+$"??_C@_0BK@JKDFKG@i?5?$DM?5lean_ctor_num_objs?$CIo?$CJ?$AA@" = comdat any
+
+$"??_C@_0BA@JCACLNKH@lean_is_ctor?$CIo?$CJ?$AA@" = comdat any
+
+@_G_initialized = internal global i8 0, align 1
+@"??_C@_0GD@OGIAFFAO@tag?5?$DM?$DN?5LeanMaxCtorTag?5?$CG?$CG?5num_obj@" = linkonce_odr dso_local unnamed_addr constant [99 x i8] c"tag <= LeanMaxCtorTag && num_objs < LEAN_MAX_CTOR_FIELDS && scalar_sz < LEAN_MAX_CTOR_SCALARS_SIZE\00", comdat, align 1
+@"??_C@_0BG@NLEFNKGC@?4?2include?2lean?1lean?4h?$AA@" = linkonce_odr dso_local unnamed_addr constant [22 x i8] c".\\include\\lean/lean.h\00", comdat, align 1
+@"??_C@_0BK@JKDFKG@i?5?$DM?5lean_ctor_num_objs?$CIo?$CJ?$AA@" = linkonce_odr dso_local unnamed_addr constant [26 x i8] c"i < lean_ctor_num_objs(o)\00", comdat, align 1
+@"??_C@_0BA@JCACLNKH@lean_is_ctor?$CIo?$CJ?$AA@" = linkonce_odr dso_local unnamed_addr constant [16 x i8] c"lean_is_ctor(o)\00", comdat, align 1
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local ptr @initialize_Lean(i8 noundef %0, ptr noundef %1) #0 {
+  %3 = alloca ptr, align 8
+  %4 = alloca ptr, align 8
+  %5 = alloca i8, align 1
+  %6 = alloca ptr, align 8
+  store ptr %1, ptr %4, align 8
+  store i8 %0, ptr %5, align 1
+  %7 = load i8, ptr @_G_initialized, align 1
+  %8 = trunc i8 %7 to i1
+  br i1 %8, label %9, label %12
+
+9:                                                ; preds = %2
+  %10 = call ptr @lean_box(i64 noundef 0)
+  %11 = call ptr @lean_io_result_mk_ok(ptr noundef %10)
+  store ptr %11, ptr %3, align 8
+  br label %438
+
+12:                                               ; preds = %2
+  store i8 1, ptr @_G_initialized, align 1
+  %13 = call ptr @lean_io_mk_world()
+  %14 = load i8, ptr %5, align 1
+  %15 = call ptr @initialize_Init(i8 noundef %14, ptr noundef %13)
+  store ptr %15, ptr %6, align 8
+  %16 = load ptr, ptr %6, align 8
+  %17 = call zeroext i1 @lean_io_result_is_error(ptr noundef %16)
+  br i1 %17, label %18, label %20
+
+18:                                               ; preds = %12
+  %19 = load ptr, ptr %6, align 8
+  store ptr %19, ptr %3, align 8
+  br label %438
+
+20:                                               ; preds = %12
+  %21 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %21)
+  %22 = call ptr @lean_io_mk_world()
+  %23 = load i8, ptr %5, align 1
+  %24 = call ptr @initialize_Lean_Data(i8 noundef %23, ptr noundef %22)
+  store ptr %24, ptr %6, align 8
+  %25 = load ptr, ptr %6, align 8
+  %26 = call zeroext i1 @lean_io_result_is_error(ptr noundef %25)
+  br i1 %26, label %27, label %29
+
+27:                                               ; preds = %20
+  %28 = load ptr, ptr %6, align 8
+  store ptr %28, ptr %3, align 8
+  br label %438
+
+29:                                               ; preds = %20
+  %30 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %30)
+  %31 = call ptr @lean_io_mk_world()
+  %32 = load i8, ptr %5, align 1
+  %33 = call ptr @initialize_Lean_Compiler(i8 noundef %32, ptr noundef %31)
+  store ptr %33, ptr %6, align 8
+  %34 = load ptr, ptr %6, align 8
+  %35 = call zeroext i1 @lean_io_result_is_error(ptr noundef %34)
+  br i1 %35, label %36, label %38
+
+36:                                               ; preds = %29
+  %37 = load ptr, ptr %6, align 8
+  store ptr %37, ptr %3, align 8
+  br label %438
+
+38:                                               ; preds = %29
+  %39 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %39)
+  %40 = call ptr @lean_io_mk_world()
+  %41 = load i8, ptr %5, align 1
+  %42 = call ptr @initialize_Lean_Environment(i8 noundef %41, ptr noundef %40)
+  store ptr %42, ptr %6, align 8
+  %43 = load ptr, ptr %6, align 8
+  %44 = call zeroext i1 @lean_io_result_is_error(ptr noundef %43)
+  br i1 %44, label %45, label %47
+
+45:                                               ; preds = %38
+  %46 = load ptr, ptr %6, align 8
+  store ptr %46, ptr %3, align 8
+  br label %438
+
+47:                                               ; preds = %38
+  %48 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %48)
+  %49 = call ptr @lean_io_mk_world()
+  %50 = load i8, ptr %5, align 1
+  %51 = call ptr @initialize_Lean_Modifiers(i8 noundef %50, ptr noundef %49)
+  store ptr %51, ptr %6, align 8
+  %52 = load ptr, ptr %6, align 8
+  %53 = call zeroext i1 @lean_io_result_is_error(ptr noundef %52)
+  br i1 %53, label %54, label %56
+
+54:                                               ; preds = %47
+  %55 = load ptr, ptr %6, align 8
+  store ptr %55, ptr %3, align 8
+  br label %438
+
+56:                                               ; preds = %47
+  %57 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %57)
+  %58 = call ptr @lean_io_mk_world()
+  %59 = load i8, ptr %5, align 1
+  %60 = call ptr @initialize_Lean_ProjFns(i8 noundef %59, ptr noundef %58)
+  store ptr %60, ptr %6, align 8
+  %61 = load ptr, ptr %6, align 8
+  %62 = call zeroext i1 @lean_io_result_is_error(ptr noundef %61)
+  br i1 %62, label %63, label %65
+
+63:                                               ; preds = %56
+  %64 = load ptr, ptr %6, align 8
+  store ptr %64, ptr %3, align 8
+  br label %438
+
+65:                                               ; preds = %56
+  %66 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %66)
+  %67 = call ptr @lean_io_mk_world()
+  %68 = load i8, ptr %5, align 1
+  %69 = call ptr @initialize_Lean_Runtime(i8 noundef %68, ptr noundef %67)
+  store ptr %69, ptr %6, align 8
+  %70 = load ptr, ptr %6, align 8
+  %71 = call zeroext i1 @lean_io_result_is_error(ptr noundef %70)
+  br i1 %71, label %72, label %74
+
+72:                                               ; preds = %65
+  %73 = load ptr, ptr %6, align 8
+  store ptr %73, ptr %3, align 8
+  br label %438
+
+74:                                               ; preds = %65
+  %75 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %75)
+  %76 = call ptr @lean_io_mk_world()
+  %77 = load i8, ptr %5, align 1
+  %78 = call ptr @initialize_Lean_ResolveName(i8 noundef %77, ptr noundef %76)
+  store ptr %78, ptr %6, align 8
+  %79 = load ptr, ptr %6, align 8
+  %80 = call zeroext i1 @lean_io_result_is_error(ptr noundef %79)
+  br i1 %80, label %81, label %83
+
+81:                                               ; preds = %74
+  %82 = load ptr, ptr %6, align 8
+  store ptr %82, ptr %3, align 8
+  br label %438
+
+83:                                               ; preds = %74
+  %84 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %84)
+  %85 = call ptr @lean_io_mk_world()
+  %86 = load i8, ptr %5, align 1
+  %87 = call ptr @initialize_Lean_Attributes(i8 noundef %86, ptr noundef %85)
+  store ptr %87, ptr %6, align 8
+  %88 = load ptr, ptr %6, align 8
+  %89 = call zeroext i1 @lean_io_result_is_error(ptr noundef %88)
+  br i1 %89, label %90, label %92
+
+90:                                               ; preds = %83
+  %91 = load ptr, ptr %6, align 8
+  store ptr %91, ptr %3, align 8
+  br label %438
+
+92:                                               ; preds = %83
+  %93 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %93)
+  %94 = call ptr @lean_io_mk_world()
+  %95 = load i8, ptr %5, align 1
+  %96 = call ptr @initialize_Lean_Parser(i8 noundef %95, ptr noundef %94)
+  store ptr %96, ptr %6, align 8
+  %97 = load ptr, ptr %6, align 8
+  %98 = call zeroext i1 @lean_io_result_is_error(ptr noundef %97)
+  br i1 %98, label %99, label %101
+
+99:                                               ; preds = %92
+  %100 = load ptr, ptr %6, align 8
+  store ptr %100, ptr %3, align 8
+  br label %438
+
+101:                                              ; preds = %92
+  %102 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %102)
+  %103 = call ptr @lean_io_mk_world()
+  %104 = load i8, ptr %5, align 1
+  %105 = call ptr @initialize_Lean_ReducibilityAttrs(i8 noundef %104, ptr noundef %103)
+  store ptr %105, ptr %6, align 8
+  %106 = load ptr, ptr %6, align 8
+  %107 = call zeroext i1 @lean_io_result_is_error(ptr noundef %106)
+  br i1 %107, label %108, label %110
+
+108:                                              ; preds = %101
+  %109 = load ptr, ptr %6, align 8
+  store ptr %109, ptr %3, align 8
+  br label %438
+
+110:                                              ; preds = %101
+  %111 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %111)
+  %112 = call ptr @lean_io_mk_world()
+  %113 = load i8, ptr %5, align 1
+  %114 = call ptr @initialize_Lean_Elab(i8 noundef %113, ptr noundef %112)
+  store ptr %114, ptr %6, align 8
+  %115 = load ptr, ptr %6, align 8
+  %116 = call zeroext i1 @lean_io_result_is_error(ptr noundef %115)
+  br i1 %116, label %117, label %119
+
+117:                                              ; preds = %110
+  %118 = load ptr, ptr %6, align 8
+  store ptr %118, ptr %3, align 8
+  br label %438
+
+119:                                              ; preds = %110
+  %120 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %120)
+  %121 = call ptr @lean_io_mk_world()
+  %122 = load i8, ptr %5, align 1
+  %123 = call ptr @initialize_Lean_Class(i8 noundef %122, ptr noundef %121)
+  store ptr %123, ptr %6, align 8
+  %124 = load ptr, ptr %6, align 8
+  %125 = call zeroext i1 @lean_io_result_is_error(ptr noundef %124)
+  br i1 %125, label %126, label %128
+
+126:                                              ; preds = %119
+  %127 = load ptr, ptr %6, align 8
+  store ptr %127, ptr %3, align 8
+  br label %438
+
+128:                                              ; preds = %119
+  %129 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %129)
+  %130 = call ptr @lean_io_mk_world()
+  %131 = load i8, ptr %5, align 1
+  %132 = call ptr @initialize_Lean_LocalContext(i8 noundef %131, ptr noundef %130)
+  store ptr %132, ptr %6, align 8
+  %133 = load ptr, ptr %6, align 8
+  %134 = call zeroext i1 @lean_io_result_is_error(ptr noundef %133)
+  br i1 %134, label %135, label %137
+
+135:                                              ; preds = %128
+  %136 = load ptr, ptr %6, align 8
+  store ptr %136, ptr %3, align 8
+  br label %438
+
+137:                                              ; preds = %128
+  %138 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %138)
+  %139 = call ptr @lean_io_mk_world()
+  %140 = load i8, ptr %5, align 1
+  %141 = call ptr @initialize_Lean_MetavarContext(i8 noundef %140, ptr noundef %139)
+  store ptr %141, ptr %6, align 8
+  %142 = load ptr, ptr %6, align 8
+  %143 = call zeroext i1 @lean_io_result_is_error(ptr noundef %142)
+  br i1 %143, label %144, label %146
+
+144:                                              ; preds = %137
+  %145 = load ptr, ptr %6, align 8
+  store ptr %145, ptr %3, align 8
+  br label %438
+
+146:                                              ; preds = %137
+  %147 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %147)
+  %148 = call ptr @lean_io_mk_world()
+  %149 = load i8, ptr %5, align 1
+  %150 = call ptr @initialize_Lean_AuxRecursor(i8 noundef %149, ptr noundef %148)
+  store ptr %150, ptr %6, align 8
+  %151 = load ptr, ptr %6, align 8
+  %152 = call zeroext i1 @lean_io_result_is_error(ptr noundef %151)
+  br i1 %152, label %153, label %155
+
+153:                                              ; preds = %146
+  %154 = load ptr, ptr %6, align 8
+  store ptr %154, ptr %3, align 8
+  br label %438
+
+155:                                              ; preds = %146
+  %156 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %156)
+  %157 = call ptr @lean_io_mk_world()
+  %158 = load i8, ptr %5, align 1
+  %159 = call ptr @initialize_Lean_Meta(i8 noundef %158, ptr noundef %157)
+  store ptr %159, ptr %6, align 8
+  %160 = load ptr, ptr %6, align 8
+  %161 = call zeroext i1 @lean_io_result_is_error(ptr noundef %160)
+  br i1 %161, label %162, label %164
+
+162:                                              ; preds = %155
+  %163 = load ptr, ptr %6, align 8
+  store ptr %163, ptr %3, align 8
+  br label %438
+
+164:                                              ; preds = %155
+  %165 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %165)
+  %166 = call ptr @lean_io_mk_world()
+  %167 = load i8, ptr %5, align 1
+  %168 = call ptr @initialize_Lean_Util(i8 noundef %167, ptr noundef %166)
+  store ptr %168, ptr %6, align 8
+  %169 = load ptr, ptr %6, align 8
+  %170 = call zeroext i1 @lean_io_result_is_error(ptr noundef %169)
+  br i1 %170, label %171, label %173
+
+171:                                              ; preds = %164
+  %172 = load ptr, ptr %6, align 8
+  store ptr %172, ptr %3, align 8
+  br label %438
+
+173:                                              ; preds = %164
+  %174 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %174)
+  %175 = call ptr @lean_io_mk_world()
+  %176 = load i8, ptr %5, align 1
+  %177 = call ptr @initialize_Lean_Structure(i8 noundef %176, ptr noundef %175)
+  store ptr %177, ptr %6, align 8
+  %178 = load ptr, ptr %6, align 8
+  %179 = call zeroext i1 @lean_io_result_is_error(ptr noundef %178)
+  br i1 %179, label %180, label %182
+
+180:                                              ; preds = %173
+  %181 = load ptr, ptr %6, align 8
+  store ptr %181, ptr %3, align 8
+  br label %438
+
+182:                                              ; preds = %173
+  %183 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %183)
+  %184 = call ptr @lean_io_mk_world()
+  %185 = load i8, ptr %5, align 1
+  %186 = call ptr @initialize_Lean_PrettyPrinter(i8 noundef %185, ptr noundef %184)
+  store ptr %186, ptr %6, align 8
+  %187 = load ptr, ptr %6, align 8
+  %188 = call zeroext i1 @lean_io_result_is_error(ptr noundef %187)
+  br i1 %188, label %189, label %191
+
+189:                                              ; preds = %182
+  %190 = load ptr, ptr %6, align 8
+  store ptr %190, ptr %3, align 8
+  br label %438
+
+191:                                              ; preds = %182
+  %192 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %192)
+  %193 = call ptr @lean_io_mk_world()
+  %194 = load i8, ptr %5, align 1
+  %195 = call ptr @initialize_Lean_CoreM(i8 noundef %194, ptr noundef %193)
+  store ptr %195, ptr %6, align 8
+  %196 = load ptr, ptr %6, align 8
+  %197 = call zeroext i1 @lean_io_result_is_error(ptr noundef %196)
+  br i1 %197, label %198, label %200
+
+198:                                              ; preds = %191
+  %199 = load ptr, ptr %6, align 8
+  store ptr %199, ptr %3, align 8
+  br label %438
+
+200:                                              ; preds = %191
+  %201 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %201)
+  %202 = call ptr @lean_io_mk_world()
+  %203 = load i8, ptr %5, align 1
+  %204 = call ptr @initialize_Lean_ReservedNameAction(i8 noundef %203, ptr noundef %202)
+  store ptr %204, ptr %6, align 8
+  %205 = load ptr, ptr %6, align 8
+  %206 = call zeroext i1 @lean_io_result_is_error(ptr noundef %205)
+  br i1 %206, label %207, label %209
+
+207:                                              ; preds = %200
+  %208 = load ptr, ptr %6, align 8
+  store ptr %208, ptr %3, align 8
+  br label %438
+
+209:                                              ; preds = %200
+  %210 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %210)
+  %211 = call ptr @lean_io_mk_world()
+  %212 = load i8, ptr %5, align 1
+  %213 = call ptr @initialize_Lean_InternalExceptionId(i8 noundef %212, ptr noundef %211)
+  store ptr %213, ptr %6, align 8
+  %214 = load ptr, ptr %6, align 8
+  %215 = call zeroext i1 @lean_io_result_is_error(ptr noundef %214)
+  br i1 %215, label %216, label %218
+
+216:                                              ; preds = %209
+  %217 = load ptr, ptr %6, align 8
+  store ptr %217, ptr %3, align 8
+  br label %438
+
+218:                                              ; preds = %209
+  %219 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %219)
+  %220 = call ptr @lean_io_mk_world()
+  %221 = load i8, ptr %5, align 1
+  %222 = call ptr @initialize_Lean_Server(i8 noundef %221, ptr noundef %220)
+  store ptr %222, ptr %6, align 8
+  %223 = load ptr, ptr %6, align 8
+  %224 = call zeroext i1 @lean_io_result_is_error(ptr noundef %223)
+  br i1 %224, label %225, label %227
+
+225:                                              ; preds = %218
+  %226 = load ptr, ptr %6, align 8
+  store ptr %226, ptr %3, align 8
+  br label %438
+
+227:                                              ; preds = %218
+  %228 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %228)
+  %229 = call ptr @lean_io_mk_world()
+  %230 = load i8, ptr %5, align 1
+  %231 = call ptr @initialize_Lean_ScopedEnvExtension(i8 noundef %230, ptr noundef %229)
+  store ptr %231, ptr %6, align 8
+  %232 = load ptr, ptr %6, align 8
+  %233 = call zeroext i1 @lean_io_result_is_error(ptr noundef %232)
+  br i1 %233, label %234, label %236
+
+234:                                              ; preds = %227
+  %235 = load ptr, ptr %6, align 8
+  store ptr %235, ptr %3, align 8
+  br label %438
+
+236:                                              ; preds = %227
+  %237 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %237)
+  %238 = call ptr @lean_io_mk_world()
+  %239 = load i8, ptr %5, align 1
+  %240 = call ptr @initialize_Lean_DocString(i8 noundef %239, ptr noundef %238)
+  store ptr %240, ptr %6, align 8
+  %241 = load ptr, ptr %6, align 8
+  %242 = call zeroext i1 @lean_io_result_is_error(ptr noundef %241)
+  br i1 %242, label %243, label %245
+
+243:                                              ; preds = %236
+  %244 = load ptr, ptr %6, align 8
+  store ptr %244, ptr %3, align 8
+  br label %438
+
+245:                                              ; preds = %236
+  %246 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %246)
+  %247 = call ptr @lean_io_mk_world()
+  %248 = load i8, ptr %5, align 1
+  %249 = call ptr @initialize_Lean_DeclarationRange(i8 noundef %248, ptr noundef %247)
+  store ptr %249, ptr %6, align 8
+  %250 = load ptr, ptr %6, align 8
+  %251 = call zeroext i1 @lean_io_result_is_error(ptr noundef %250)
+  br i1 %251, label %252, label %254
+
+252:                                              ; preds = %245
+  %253 = load ptr, ptr %6, align 8
+  store ptr %253, ptr %3, align 8
+  br label %438
+
+254:                                              ; preds = %245
+  %255 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %255)
+  %256 = call ptr @lean_io_mk_world()
+  %257 = load i8, ptr %5, align 1
+  %258 = call ptr @initialize_Lean_LoadDynlib(i8 noundef %257, ptr noundef %256)
+  store ptr %258, ptr %6, align 8
+  %259 = load ptr, ptr %6, align 8
+  %260 = call zeroext i1 @lean_io_result_is_error(ptr noundef %259)
+  br i1 %260, label %261, label %263
+
+261:                                              ; preds = %254
+  %262 = load ptr, ptr %6, align 8
+  store ptr %262, ptr %3, align 8
+  br label %438
+
+263:                                              ; preds = %254
+  %264 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %264)
+  %265 = call ptr @lean_io_mk_world()
+  %266 = load i8, ptr %5, align 1
+  %267 = call ptr @initialize_Lean_Widget(i8 noundef %266, ptr noundef %265)
+  store ptr %267, ptr %6, align 8
+  %268 = load ptr, ptr %6, align 8
+  %269 = call zeroext i1 @lean_io_result_is_error(ptr noundef %268)
+  br i1 %269, label %270, label %272
+
+270:                                              ; preds = %263
+  %271 = load ptr, ptr %6, align 8
+  store ptr %271, ptr %3, align 8
+  br label %438
+
+272:                                              ; preds = %263
+  %273 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %273)
+  %274 = call ptr @lean_io_mk_world()
+  %275 = load i8, ptr %5, align 1
+  %276 = call ptr @initialize_Lean_Log(i8 noundef %275, ptr noundef %274)
+  store ptr %276, ptr %6, align 8
+  %277 = load ptr, ptr %6, align 8
+  %278 = call zeroext i1 @lean_io_result_is_error(ptr noundef %277)
+  br i1 %278, label %279, label %281
+
+279:                                              ; preds = %272
+  %280 = load ptr, ptr %6, align 8
+  store ptr %280, ptr %3, align 8
+  br label %438
+
+281:                                              ; preds = %272
+  %282 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %282)
+  %283 = call ptr @lean_io_mk_world()
+  %284 = load i8, ptr %5, align 1
+  %285 = call ptr @initialize_Lean_Linter(i8 noundef %284, ptr noundef %283)
+  store ptr %285, ptr %6, align 8
+  %286 = load ptr, ptr %6, align 8
+  %287 = call zeroext i1 @lean_io_result_is_error(ptr noundef %286)
+  br i1 %287, label %288, label %290
+
+288:                                              ; preds = %281
+  %289 = load ptr, ptr %6, align 8
+  store ptr %289, ptr %3, align 8
+  br label %438
+
+290:                                              ; preds = %281
+  %291 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %291)
+  %292 = call ptr @lean_io_mk_world()
+  %293 = load i8, ptr %5, align 1
+  %294 = call ptr @initialize_Lean_SubExpr(i8 noundef %293, ptr noundef %292)
+  store ptr %294, ptr %6, align 8
+  %295 = load ptr, ptr %6, align 8
+  %296 = call zeroext i1 @lean_io_result_is_error(ptr noundef %295)
+  br i1 %296, label %297, label %299
+
+297:                                              ; preds = %290
+  %298 = load ptr, ptr %6, align 8
+  store ptr %298, ptr %3, align 8
+  br label %438
+
+299:                                              ; preds = %290
+  %300 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %300)
+  %301 = call ptr @lean_io_mk_world()
+  %302 = load i8, ptr %5, align 1
+  %303 = call ptr @initialize_Lean_LabelAttribute(i8 noundef %302, ptr noundef %301)
+  store ptr %303, ptr %6, align 8
+  %304 = load ptr, ptr %6, align 8
+  %305 = call zeroext i1 @lean_io_result_is_error(ptr noundef %304)
+  br i1 %305, label %306, label %308
+
+306:                                              ; preds = %299
+  %307 = load ptr, ptr %6, align 8
+  store ptr %307, ptr %3, align 8
+  br label %438
+
+308:                                              ; preds = %299
+  %309 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %309)
+  %310 = call ptr @lean_io_mk_world()
+  %311 = load i8, ptr %5, align 1
+  %312 = call ptr @initialize_Lean_AddDecl(i8 noundef %311, ptr noundef %310)
+  store ptr %312, ptr %6, align 8
+  %313 = load ptr, ptr %6, align 8
+  %314 = call zeroext i1 @lean_io_result_is_error(ptr noundef %313)
+  br i1 %314, label %315, label %317
+
+315:                                              ; preds = %308
+  %316 = load ptr, ptr %6, align 8
+  store ptr %316, ptr %3, align 8
+  br label %438
+
+317:                                              ; preds = %308
+  %318 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %318)
+  %319 = call ptr @lean_io_mk_world()
+  %320 = load i8, ptr %5, align 1
+  %321 = call ptr @initialize_Lean_Replay(i8 noundef %320, ptr noundef %319)
+  store ptr %321, ptr %6, align 8
+  %322 = load ptr, ptr %6, align 8
+  %323 = call zeroext i1 @lean_io_result_is_error(ptr noundef %322)
+  br i1 %323, label %324, label %326
+
+324:                                              ; preds = %317
+  %325 = load ptr, ptr %6, align 8
+  store ptr %325, ptr %3, align 8
+  br label %438
+
+326:                                              ; preds = %317
+  %327 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %327)
+  %328 = call ptr @lean_io_mk_world()
+  %329 = load i8, ptr %5, align 1
+  %330 = call ptr @initialize_Lean_PrivateName(i8 noundef %329, ptr noundef %328)
+  store ptr %330, ptr %6, align 8
+  %331 = load ptr, ptr %6, align 8
+  %332 = call zeroext i1 @lean_io_result_is_error(ptr noundef %331)
+  br i1 %332, label %333, label %335
+
+333:                                              ; preds = %326
+  %334 = load ptr, ptr %6, align 8
+  store ptr %334, ptr %3, align 8
+  br label %438
+
+335:                                              ; preds = %326
+  %336 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %336)
+  %337 = call ptr @lean_io_mk_world()
+  %338 = load i8, ptr %5, align 1
+  %339 = call ptr @initialize_Lean_PremiseSelection(i8 noundef %338, ptr noundef %337)
+  store ptr %339, ptr %6, align 8
+  %340 = load ptr, ptr %6, align 8
+  %341 = call zeroext i1 @lean_io_result_is_error(ptr noundef %340)
+  br i1 %341, label %342, label %344
+
+342:                                              ; preds = %335
+  %343 = load ptr, ptr %6, align 8
+  store ptr %343, ptr %3, align 8
+  br label %438
+
+344:                                              ; preds = %335
+  %345 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %345)
+  %346 = call ptr @lean_io_mk_world()
+  %347 = load i8, ptr %5, align 1
+  %348 = call ptr @initialize_Lean_Namespace(i8 noundef %347, ptr noundef %346)
+  store ptr %348, ptr %6, align 8
+  %349 = load ptr, ptr %6, align 8
+  %350 = call zeroext i1 @lean_io_result_is_error(ptr noundef %349)
+  br i1 %350, label %351, label %353
+
+351:                                              ; preds = %344
+  %352 = load ptr, ptr %6, align 8
+  store ptr %352, ptr %3, align 8
+  br label %438
+
+353:                                              ; preds = %344
+  %354 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %354)
+  %355 = call ptr @lean_io_mk_world()
+  %356 = load i8, ptr %5, align 1
+  %357 = call ptr @initialize_Lean_EnvExtension(i8 noundef %356, ptr noundef %355)
+  store ptr %357, ptr %6, align 8
+  %358 = load ptr, ptr %6, align 8
+  %359 = call zeroext i1 @lean_io_result_is_error(ptr noundef %358)
+  br i1 %359, label %360, label %362
+
+360:                                              ; preds = %353
+  %361 = load ptr, ptr %6, align 8
+  store ptr %361, ptr %3, align 8
+  br label %438
+
+362:                                              ; preds = %353
+  %363 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %363)
+  %364 = call ptr @lean_io_mk_world()
+  %365 = load i8, ptr %5, align 1
+  %366 = call ptr @initialize_Lean_Data_Json(i8 noundef %365, ptr noundef %364)
+  store ptr %366, ptr %6, align 8
+  %367 = load ptr, ptr %6, align 8
+  %368 = call zeroext i1 @lean_io_result_is_error(ptr noundef %367)
+  br i1 %368, label %369, label %371
+
+369:                                              ; preds = %362
+  %370 = load ptr, ptr %6, align 8
+  store ptr %370, ptr %3, align 8
+  br label %438
+
+371:                                              ; preds = %362
+  %372 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %372)
+  %373 = call ptr @lean_io_mk_world()
+  %374 = load i8, ptr %5, align 1
+  %375 = call ptr @initialize_Init_System_IO(i8 noundef %374, ptr noundef %373)
+  store ptr %375, ptr %6, align 8
+  %376 = load ptr, ptr %6, align 8
+  %377 = call zeroext i1 @lean_io_result_is_error(ptr noundef %376)
+  br i1 %377, label %378, label %380
+
+378:                                              ; preds = %371
+  %379 = load ptr, ptr %6, align 8
+  store ptr %379, ptr %3, align 8
+  br label %438
+
+380:                                              ; preds = %371
+  %381 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %381)
+  %382 = call ptr @lean_io_mk_world()
+  %383 = load i8, ptr %5, align 1
+  %384 = call ptr @initialize_Lean_Data_Json(i8 noundef %383, ptr noundef %382)
+  store ptr %384, ptr %6, align 8
+  %385 = load ptr, ptr %6, align 8
+  %386 = call zeroext i1 @lean_io_result_is_error(ptr noundef %385)
+  br i1 %386, label %387, label %389
+
+387:                                              ; preds = %380
+  %388 = load ptr, ptr %6, align 8
+  store ptr %388, ptr %3, align 8
+  br label %438
+
+389:                                              ; preds = %380
+  %390 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %390)
+  %391 = call ptr @lean_io_mk_world()
+  %392 = load i8, ptr %5, align 1
+  %393 = call ptr @initialize_Lean_Data_Lsp(i8 noundef %392, ptr noundef %391)
+  store ptr %393, ptr %6, align 8
+  %394 = load ptr, ptr %6, align 8
+  %395 = call zeroext i1 @lean_io_result_is_error(ptr noundef %394)
+  br i1 %395, label %396, label %398
+
+396:                                              ; preds = %389
+  %397 = load ptr, ptr %6, align 8
+  store ptr %397, ptr %3, align 8
+  br label %438
+
+398:                                              ; preds = %389
+  %399 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %399)
+  %400 = call ptr @lean_io_mk_world()
+  %401 = load i8, ptr %5, align 1
+  %402 = call ptr @initialize_Lean_Data_Lsp_Ipc(i8 noundef %401, ptr noundef %400)
+  store ptr %402, ptr %6, align 8
+  %403 = load ptr, ptr %6, align 8
+  %404 = call zeroext i1 @lean_io_result_is_error(ptr noundef %403)
+  br i1 %404, label %405, label %407
+
+405:                                              ; preds = %398
+  %406 = load ptr, ptr %6, align 8
+  store ptr %406, ptr %3, align 8
+  br label %438
+
+407:                                              ; preds = %398
+  %408 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %408)
+  %409 = call ptr @lean_io_mk_world()
+  %410 = load i8, ptr %5, align 1
+  %411 = call ptr @initialize_Init_System_IO(i8 noundef %410, ptr noundef %409)
+  store ptr %411, ptr %6, align 8
+  %412 = load ptr, ptr %6, align 8
+  %413 = call zeroext i1 @lean_io_result_is_error(ptr noundef %412)
+  br i1 %413, label %414, label %416
+
+414:                                              ; preds = %407
+  %415 = load ptr, ptr %6, align 8
+  store ptr %415, ptr %3, align 8
+  br label %438
+
+416:                                              ; preds = %407
+  %417 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %417)
+  %418 = call ptr @lean_io_mk_world()
+  %419 = load i8, ptr %5, align 1
+  %420 = call ptr @initialize_Lean_Data_RBTree(i8 noundef %419, ptr noundef %418)
+  store ptr %420, ptr %6, align 8
+  %421 = load ptr, ptr %6, align 8
+  %422 = call zeroext i1 @lean_io_result_is_error(ptr noundef %421)
+  br i1 %422, label %423, label %425
+
+423:                                              ; preds = %416
+  %424 = load ptr, ptr %6, align 8
+  store ptr %424, ptr %3, align 8
+  br label %438
+
+425:                                              ; preds = %416
+  %426 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %426)
+  %427 = call ptr @lean_io_mk_world()
+  %428 = load i8, ptr %5, align 1
+  %429 = call ptr @initialize_Lean_Data_Json(i8 noundef %428, ptr noundef %427)
+  store ptr %429, ptr %6, align 8
+  %430 = load ptr, ptr %6, align 8
+  %431 = call zeroext i1 @lean_io_result_is_error(ptr noundef %430)
+  br i1 %431, label %432, label %434
+
+432:                                              ; preds = %425
+  %433 = load ptr, ptr %6, align 8
+  store ptr %433, ptr %3, align 8
+  br label %438
+
+434:                                              ; preds = %425
+  %435 = load ptr, ptr %6, align 8
+  call void @lean_dec_ref(ptr noundef %435)
+  %436 = call ptr @lean_box(i64 noundef 0)
+  %437 = call ptr @lean_io_result_mk_ok(ptr noundef %436)
+  store ptr %437, ptr %3, align 8
+  br label %438
+
+438:                                              ; preds = %434, %432, %423, %414, %405, %396, %387, %378, %369, %360, %351, %342, %333, %324, %315, %306, %297, %288, %279, %270, %261, %252, %243, %234, %225, %216, %207, %198, %189, %180, %171, %162, %153, %144, %135, %126, %117, %108, %99, %90, %81, %72, %63, %54, %45, %36, %27, %18, %9
+  %439 = load ptr, ptr %3, align 8
+  ret ptr %439
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal ptr @lean_io_result_mk_ok(ptr noundef %0) #0 {
+  %2 = alloca ptr, align 8
+  %3 = alloca ptr, align 8
+  store ptr %0, ptr %2, align 8
+  %4 = call ptr @lean_alloc_ctor(i32 noundef 0, i32 noundef 2, i32 noundef 0)
+  store ptr %4, ptr %3, align 8
+  %5 = load ptr, ptr %2, align 8
+  %6 = load ptr, ptr %3, align 8
+  call void @lean_ctor_set(ptr noundef %6, i32 noundef 0, ptr noundef %5)
+  %7 = call ptr @lean_box(i64 noundef 0)
+  %8 = load ptr, ptr %3, align 8
+  call void @lean_ctor_set(ptr noundef %8, i32 noundef 1, ptr noundef %7)
+  %9 = load ptr, ptr %3, align 8
+  ret ptr %9
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal ptr @lean_box(i64 noundef %0) #0 {
+  %2 = alloca i64, align 8
+  store i64 %0, ptr %2, align 8
+  %3 = load i64, ptr %2, align 8
+  %4 = shl i64 %3, 1
+  %5 = or i64 %4, 1
+  %6 = inttoptr i64 %5 to ptr
+  ret ptr %6
+}
+
+declare dso_local ptr @initialize_Init(i8 noundef, ptr noundef) #1
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal zeroext i1 @lean_io_result_is_error(ptr noundef %0) #0 {
+  %2 = alloca ptr, align 8
+  store ptr %0, ptr %2, align 8
+  %3 = load ptr, ptr %2, align 8
+  %4 = call i8 @lean_ptr_tag(ptr noundef %3)
+  %5 = zext i8 %4 to i32
+  %6 = icmp eq i32 %5, 1
+  ret i1 %6
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal void @lean_dec_ref(ptr noundef %0) #0 {
+  %2 = alloca ptr, align 8
+  store ptr %0, ptr %2, align 8
+  %3 = load ptr, ptr %2, align 8
+  %4 = getelementptr inbounds nuw %struct.lean_object, ptr %3, i32 0, i32 0
+  %5 = load i32, ptr %4, align 4
+  %6 = icmp sgt i32 %5, 1
+  br i1 %6, label %7, label %12
+
+7:                                                ; preds = %1
+  %8 = load ptr, ptr %2, align 8
+  %9 = getelementptr inbounds nuw %struct.lean_object, ptr %8, i32 0, i32 0
+  %10 = load i32, ptr %9, align 4
+  %11 = add nsw i32 %10, -1
+  store i32 %11, ptr %9, align 4
+  br label %20
+
+12:                                               ; preds = %1
+  %13 = load ptr, ptr %2, align 8
+  %14 = getelementptr inbounds nuw %struct.lean_object, ptr %13, i32 0, i32 0
+  %15 = load i32, ptr %14, align 4
+  %16 = icmp ne i32 %15, 0
+  br i1 %16, label %17, label %19
+
+17:                                               ; preds = %12
+  %18 = load ptr, ptr %2, align 8
+  call void @lean_dec_ref_cold(ptr noundef %18)
+  br label %19
+
+19:                                               ; preds = %17, %12
+  br label %20
+
+20:                                               ; preds = %19, %7
+  ret void
+}
+
+declare dso_local ptr @initialize_Lean_Data(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Compiler(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Environment(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Modifiers(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_ProjFns(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Runtime(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_ResolveName(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Attributes(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Parser(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_ReducibilityAttrs(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Elab(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Class(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_LocalContext(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_MetavarContext(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_AuxRecursor(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Meta(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Util(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Structure(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_PrettyPrinter(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_CoreM(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_ReservedNameAction(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_InternalExceptionId(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Server(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_ScopedEnvExtension(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_DocString(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_DeclarationRange(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_LoadDynlib(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Widget(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Log(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Linter(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_SubExpr(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_LabelAttribute(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_AddDecl(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Replay(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_PrivateName(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_PremiseSelection(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Namespace(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_EnvExtension(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Data_Json(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Init_System_IO(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Data_Lsp(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Data_Lsp_Ipc(i8 noundef, ptr noundef) #1
+
+declare dso_local ptr @initialize_Lean_Data_RBTree(i8 noundef, ptr noundef) #1
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal ptr @lean_alloc_ctor(i32 noundef %0, i32 noundef %1, i32 noundef %2) #0 {
+  %4 = alloca i32, align 4
+  %5 = alloca i32, align 4
+  %6 = alloca i32, align 4
+  %7 = alloca ptr, align 8
+  store i32 %2, ptr %4, align 4
+  store i32 %1, ptr %5, align 4
+  store i32 %0, ptr %6, align 4
+  %8 = load i32, ptr %6, align 4
+  %9 = icmp ule i32 %8, 243
+  br i1 %9, label %10, label %16
+
+10:                                               ; preds = %3
+  %11 = load i32, ptr %5, align 4
+  %12 = icmp ult i32 %11, 256
+  br i1 %12, label %13, label %16
+
+13:                                               ; preds = %10
+  %14 = load i32, ptr %4, align 4
+  %15 = icmp ult i32 %14, 1024
+  br label %16
+
+16:                                               ; preds = %13, %10, %3
+  %17 = phi i1 [ false, %10 ], [ false, %3 ], [ %15, %13 ]
+  %18 = xor i1 %17, true
+  br i1 %18, label %19, label %20
+
+19:                                               ; preds = %16
+  call void @lean_notify_assert(ptr noundef @"??_C@_0BG@NLEFNKGC@?4?2include?2lean?1lean?4h?$AA@", i32 noundef 604, ptr noundef @"??_C@_0GD@OGIAFFAO@tag?5?$DM?$DN?5LeanMaxCtorTag?5?$CG?$CG?5num_obj@")
+  br label %20
+
+20:                                               ; preds = %19, %16
+  %21 = load i32, ptr %5, align 4
+  %22 = zext i32 %21 to i64
+  %23 = mul i64 8, %22
+  %24 = add i64 8, %23
+  %25 = load i32, ptr %4, align 4
+  %26 = zext i32 %25 to i64
+  %27 = add i64 %24, %26
+  %28 = trunc i64 %27 to i32
+  %29 = call ptr @lean_alloc_ctor_memory(i32 noundef %28)
+  store ptr %29, ptr %7, align 8
+  %30 = load i32, ptr %5, align 4
+  %31 = load i32, ptr %6, align 4
+  %32 = load ptr, ptr %7, align 8
+  call void @lean_set_st_header(ptr noundef %32, i32 noundef %31, i32 noundef %30)
+  %33 = load ptr, ptr %7, align 8
+  ret ptr %33
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal void @lean_ctor_set(ptr noundef %0, i32 noundef %1, ptr noundef %2) #0 {
+  %4 = alloca ptr, align 8
+  %5 = alloca i32, align 4
+  %6 = alloca ptr, align 8
+  store ptr %2, ptr %4, align 8
+  store i32 %1, ptr %5, align 4
+  store ptr %0, ptr %6, align 8
+  %7 = load i32, ptr %5, align 4
+  %8 = load ptr, ptr %6, align 8
+  %9 = call i32 @lean_ctor_num_objs(ptr noundef %8)
+  %10 = icmp ult i32 %7, %9
+  %11 = xor i1 %10, true
+  br i1 %11, label %12, label %13
+
+12:                                               ; preds = %3
+  call void @lean_notify_assert(ptr noundef @"??_C@_0BG@NLEFNKGC@?4?2include?2lean?1lean?4h?$AA@", i32 noundef 616, ptr noundef @"??_C@_0BK@JKDFKG@i?5?$DM?5lean_ctor_num_objs?$CIo?$CJ?$AA@")
+  br label %13
+
+13:                                               ; preds = %12, %3
+  %14 = load ptr, ptr %4, align 8
+  %15 = load ptr, ptr %6, align 8
+  %16 = call ptr @lean_ctor_obj_cptr(ptr noundef %15)
+  %17 = load i32, ptr %5, align 4
+  %18 = zext i32 %17 to i64
+  %19 = getelementptr inbounds nuw ptr, ptr %16, i64 %18
+  store ptr %14, ptr %19, align 8
+  ret void
+}
+
+declare dso_local void @lean_notify_assert(ptr noundef, i32 noundef, ptr noundef) #1
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal ptr @lean_alloc_ctor_memory(i32 noundef %0) #0 {
+  %2 = alloca i32, align 4
+  %3 = alloca i32, align 4
+  %4 = alloca ptr, align 8
+  %5 = alloca ptr, align 8
+  store i32 %0, ptr %2, align 4
+  %6 = load i32, ptr %2, align 4
+  %7 = zext i32 %6 to i64
+  %8 = call i64 @lean_align(i64 noundef %7, i64 noundef 8)
+  %9 = trunc i64 %8 to i32
+  store i32 %9, ptr %3, align 4
+  %10 = load i32, ptr %2, align 4
+  %11 = call ptr @lean_alloc_small_object(i32 noundef %10)
+  store ptr %11, ptr %4, align 8
+  %12 = load i32, ptr %3, align 4
+  %13 = load i32, ptr %2, align 4
+  %14 = icmp ugt i32 %12, %13
+  br i1 %14, label %15, label %22
+
+15:                                               ; preds = %1
+  %16 = load ptr, ptr %4, align 8
+  %17 = load i32, ptr %3, align 4
+  %18 = zext i32 %17 to i64
+  %19 = getelementptr inbounds nuw i8, ptr %16, i64 %18
+  store ptr %19, ptr %5, align 8
+  %20 = load ptr, ptr %5, align 8
+  %21 = getelementptr inbounds i64, ptr %20, i64 -1
+  store i64 0, ptr %21, align 8
+  br label %22
+
+22:                                               ; preds = %15, %1
+  %23 = load ptr, ptr %4, align 8
+  ret ptr %23
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal void @lean_set_st_header(ptr noundef %0, i32 noundef %1, i32 noundef %2) #0 {
+  %4 = alloca i32, align 4
+  %5 = alloca i32, align 4
+  %6 = alloca ptr, align 8
+  store i32 %2, ptr %4, align 4
+  store i32 %1, ptr %5, align 4
+  store ptr %0, ptr %6, align 8
+  %7 = load ptr, ptr %6, align 8
+  %8 = getelementptr inbounds nuw %struct.lean_object, ptr %7, i32 0, i32 0
+  store i32 1, ptr %8, align 4
+  %9 = load i32, ptr %5, align 4
+  %10 = load ptr, ptr %6, align 8
+  %11 = getelementptr inbounds nuw %struct.lean_object, ptr %10, i32 0, i32 1
+  %12 = load i32, ptr %11, align 4
+  %13 = and i32 %9, 255
+  %14 = shl i32 %13, 24
+  %15 = and i32 %12, 16777215
+  %16 = or i32 %15, %14
+  store i32 %16, ptr %11, align 4
+  %17 = load i32, ptr %4, align 4
+  %18 = load ptr, ptr %6, align 8
+  %19 = getelementptr inbounds nuw %struct.lean_object, ptr %18, i32 0, i32 1
+  %20 = load i32, ptr %19, align 4
+  %21 = and i32 %17, 255
+  %22 = shl i32 %21, 16
+  %23 = and i32 %20, -16711681
+  %24 = or i32 %23, %22
+  store i32 %24, ptr %19, align 4
+  ret void
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal i64 @lean_align(i64 noundef %0, i64 noundef %1) #0 {
+  %3 = alloca i64, align 8
+  %4 = alloca i64, align 8
+  store i64 %1, ptr %3, align 8
+  store i64 %0, ptr %4, align 8
+  %5 = load i64, ptr %4, align 8
+  %6 = load i64, ptr %3, align 8
+  %7 = udiv i64 %5, %6
+  %8 = load i64, ptr %3, align 8
+  %9 = mul i64 %7, %8
+  %10 = load i64, ptr %3, align 8
+  %11 = load i64, ptr %4, align 8
+  %12 = load i64, ptr %3, align 8
+  %13 = urem i64 %11, %12
+  %14 = icmp ne i64 %13, 0
+  %15 = zext i1 %14 to i32
+  %16 = sext i32 %15 to i64
+  %17 = mul i64 %10, %16
+  %18 = add i64 %9, %17
+  ret i64 %18
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal ptr @lean_alloc_small_object(i32 noundef %0) #0 {
+  %2 = alloca i32, align 4
+  %3 = alloca ptr, align 8
+  %4 = alloca ptr, align 8
+  store i32 %0, ptr %2, align 4
+  call void @lean_inc_heartbeat()
+  %5 = load i32, ptr %2, align 4
+  %6 = zext i32 %5 to i64
+  %7 = call i64 @lean_align(i64 noundef %6, i64 noundef 8)
+  %8 = trunc i64 %7 to i32
+  store i32 %8, ptr %2, align 4
+  %9 = load i32, ptr %2, align 4
+  %10 = zext i32 %9 to i64
+  %11 = call noalias ptr @mi_malloc_small(i64 noundef %10)
+  store ptr %11, ptr %3, align 8
+  %12 = load ptr, ptr %3, align 8
+  %13 = icmp eq ptr %12, null
+  br i1 %13, label %14, label %15
+
+14:                                               ; preds = %1
+  call void @lean_internal_panic_out_of_memory() #3
+  unreachable
+
+15:                                               ; preds = %1
+  %16 = load ptr, ptr %3, align 8
+  store ptr %16, ptr %4, align 8
+  %17 = load i32, ptr %2, align 4
+  %18 = load ptr, ptr %4, align 8
+  %19 = getelementptr inbounds nuw %struct.lean_object, ptr %18, i32 0, i32 1
+  %20 = load i32, ptr %19, align 4
+  %21 = and i32 %17, 65535
+  %22 = and i32 %20, -65536
+  %23 = or i32 %22, %21
+  store i32 %23, ptr %19, align 4
+  %24 = load ptr, ptr %4, align 8
+  ret ptr %24
+}
+
+declare dso_local void @lean_inc_heartbeat() #1
+
+declare dso_local noalias ptr @mi_malloc_small(i64 noundef) #1
+
+; Function Attrs: noreturn
+declare dso_local void @lean_internal_panic_out_of_memory() #2
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal i32 @lean_ctor_num_objs(ptr noundef %0) #0 {
+  %2 = alloca ptr, align 8
+  store ptr %0, ptr %2, align 8
+  %3 = load ptr, ptr %2, align 8
+  %4 = call zeroext i1 @lean_is_ctor(ptr noundef %3)
+  %5 = xor i1 %4, true
+  br i1 %5, label %6, label %7
+
+6:                                                ; preds = %1
+  call void @lean_notify_assert(ptr noundef @"??_C@_0BG@NLEFNKGC@?4?2include?2lean?1lean?4h?$AA@", i32 noundef 589, ptr noundef @"??_C@_0BA@JCACLNKH@lean_is_ctor?$CIo?$CJ?$AA@")
+  br label %7
+
+7:                                                ; preds = %6, %1
+  %8 = load ptr, ptr %2, align 8
+  %9 = call i32 @lean_ptr_other(ptr noundef %8)
+  ret i32 %9
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal ptr @lean_ctor_obj_cptr(ptr noundef %0) #0 {
+  %2 = alloca ptr, align 8
+  store ptr %0, ptr %2, align 8
+  %3 = load ptr, ptr %2, align 8
+  %4 = call zeroext i1 @lean_is_ctor(ptr noundef %3)
+  %5 = xor i1 %4, true
+  br i1 %5, label %6, label %7
+
+6:                                                ; preds = %1
+  call void @lean_notify_assert(ptr noundef @"??_C@_0BG@NLEFNKGC@?4?2include?2lean?1lean?4h?$AA@", i32 noundef 594, ptr noundef @"??_C@_0BA@JCACLNKH@lean_is_ctor?$CIo?$CJ?$AA@")
+  br label %7
+
+7:                                                ; preds = %6, %1
+  %8 = load ptr, ptr %2, align 8
+  %9 = call ptr @lean_to_ctor(ptr noundef %8)
+  %10 = getelementptr inbounds nuw %struct.lean_ctor_object, ptr %9, i32 0, i32 1
+  %11 = getelementptr inbounds [0 x ptr], ptr %10, i64 0, i64 0
+  ret ptr %11
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal zeroext i1 @lean_is_ctor(ptr noundef %0) #0 {
+  %2 = alloca ptr, align 8
+  store ptr %0, ptr %2, align 8
+  %3 = load ptr, ptr %2, align 8
+  %4 = call i8 @lean_ptr_tag(ptr noundef %3)
+  %5 = zext i8 %4 to i32
+  %6 = icmp sle i32 %5, 243
+  ret i1 %6
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal i32 @lean_ptr_other(ptr noundef %0) #0 {
+  %2 = alloca ptr, align 8
+  store ptr %0, ptr %2, align 8
+  %3 = load ptr, ptr %2, align 8
+  %4 = getelementptr inbounds nuw %struct.lean_object, ptr %3, i32 0, i32 1
+  %5 = load i32, ptr %4, align 4
+  %6 = lshr i32 %5, 16
+  %7 = and i32 %6, 255
+  ret i32 %7
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal i8 @lean_ptr_tag(ptr noundef %0) #0 {
+  %2 = alloca ptr, align 8
+  store ptr %0, ptr %2, align 8
+  %3 = load ptr, ptr %2, align 8
+  %4 = getelementptr inbounds nuw %struct.lean_object, ptr %3, i32 0, i32 1
+  %5 = load i32, ptr %4, align 4
+  %6 = lshr i32 %5, 24
+  %7 = trunc i32 %6 to i8
+  ret i8 %7
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal ptr @lean_to_ctor(ptr noundef %0) #0 {
+  %2 = alloca ptr, align 8
+  store ptr %0, ptr %2, align 8
+  %3 = load ptr, ptr %2, align 8
+  %4 = call zeroext i1 @lean_is_ctor(ptr noundef %3)
+  %5 = xor i1 %4, true
+  br i1 %5, label %6, label %7
+
+6:                                                ; preds = %1
+  call void @lean_notify_assert(ptr noundef @"??_C@_0BG@NLEFNKGC@?4?2include?2lean?1lean?4h?$AA@", i32 noundef 525, ptr noundef @"??_C@_0BA@JCACLNKH@lean_is_ctor?$CIo?$CJ?$AA@")
+  br label %7
+
+7:                                                ; preds = %6, %1
+  %8 = load ptr, ptr %2, align 8
+  ret ptr %8
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal ptr @lean_io_mk_world() #0 {
+  %1 = call ptr @lean_box(i64 noundef 0)
+  ret ptr %1
+}
+
+declare dso_local void @lean_dec_ref_cold(ptr noundef) #1
+
+attributes #0 = { noinline nounwind optnone uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #1 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #2 = { noreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #3 = { noreturn }
+
+!llvm.module.flags = !{!0, !1, !2, !3}
+!llvm.ident = !{!4}
+
+!0 = !{i32 1, !"wchar_size", i32 2}
+!1 = !{i32 8, !"PIC Level", i32 2}
+!2 = !{i32 7, !"uwtable", i32 2}
+!3 = !{i32 1, !"MaxTLSAlign", i32 65536}
+!4 = !{!"clang version 20.1.2"}
